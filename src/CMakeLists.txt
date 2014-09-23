@@ -1,4 +1,6 @@
 add_library(CLionRedPencilDemo_lib
-    RedPencilRulesEngine.cpp
-    RedPencilRulesEngine.h
+    Product.cpp
+    Product.h
+    RulesEngine.cpp
+    RulesEngine.h
 )
