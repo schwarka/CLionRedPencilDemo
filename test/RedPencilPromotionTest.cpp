@@ -3,6 +3,7 @@
 
 using namespace RedPencilPromotion;
 using namespace testing;
+using namespace std;
 
 class RedPencilPromotionTest : public Test {
 
@@ -11,6 +12,18 @@ public:
     }
 
     virtual ~RedPencilPromotionTest() {
+    }
+
+    time_t GetDate(const int &daysAgo) {
+        time_t t = time(0);
+        tm* date = localtime(&t);
+
+        date->tm_hour = 0;
+        date->tm_min = 0;
+        date->tm_sec = 0;
+        date->tm_mday -= daysAgo;
+
+        return mktime(date);
     }
 
     Product TheProduct;
@@ -34,5 +47,11 @@ TEST_F(RedPencilPromotionTest, WhenThePriceIsReducedByThirtyPercentThenAPromotio
 
 TEST_F(RedPencilPromotionTest, WhenThePriceIsReducedByMoreThanThirtyPercentThenAPromotionIsNotStarted) {
     TheProduct.SalePrice = 69.99;
+    EXPECT_FALSE(TheProduct.IsPromotion());
+}
+
+TEST_F(RedPencilPromotionTest, GivenThePriceHasChangedWithinTheLastThirtyDaysWhenThePriceIsReducedThenAPromotionIsNotStarted) {
+    TheProduct.SalePrice = 90.00;
+    TheProduct.PriceLastUpdated = GetDate(29);
     EXPECT_FALSE(TheProduct.IsPromotion());
 }

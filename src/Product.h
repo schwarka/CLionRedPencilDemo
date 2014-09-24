@@ -1,3 +1,5 @@
+#include <ctime>
+
 #pragma once
 
 namespace RedPencilPromotion {
@@ -11,5 +13,6 @@ namespace RedPencilPromotion {
 
         const double StandardPrice;
         double SalePrice;
+        std::time_t PriceLastUpdated;
     };
 }

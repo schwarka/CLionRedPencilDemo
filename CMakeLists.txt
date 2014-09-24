@@ -9,8 +9,10 @@ add_executable(CLionRedPencilDemo main.cpp)
 
 target_link_libraries(CLionRedPencilDemo CLionRedPencilDemo_lib)
 
+add_dependencies(CLionRedPencilDemo CLionRedPencilDemo_test)
+
 add_custom_command(TARGET CLionRedPencilDemo
-    POST_BUILD
+    PRE_BUILD
     COMMAND CLionRedPencilDemo_test
-    DEPENDS CLionRedPencilDemo_test
 )
+
